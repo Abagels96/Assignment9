@@ -3,18 +3,22 @@ package com.coderscampus.recipesorter.service;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
 public class RecipeSorterService {
-	
-Recipe recipe= new Recipe();
+
+	Recipe recipe = new Recipe();
+	Set<Recipe> recipeList = new HashSet<>();
+
 //first get the file to parse correctly
-	//then add the record.get to each variable in the POJO
-	//construct the object and then add all the objects to a set 
+	// then add the record.get to each variable in the POJO
+	// construct the object and then add all the objects to a set
 	// find a way to filter the set by attributes and put mapping on all of them
-   public void readFile() throws FileNotFoundException {
+	public void readFile() throws FileNotFoundException {
 
 	FileReader in = new FileReader("recipes.txt");
 	
@@ -24,11 +28,12 @@ Recipe recipe= new Recipe();
 	try {
 		records = CSVFormat.DEFAULT.withIgnoreSurroundingSpaces()
 				                                       .withHeader()
-				                                       .withQuote(null)
 				                                       .withSkipHeaderRecord()
+				                                       .withEscape('\\')
 				                                       .parse(in);
 		for (CSVRecord record : records) {
 			Integer cookingMinutes= Integer.parseInt(record.get(0));
+			
 			
 			
 			Boolean dairyFree= Boolean.parseBoolean(record.get(1));
@@ -68,9 +73,11 @@ System.out.println("here is the title"+title);
 System.out.println("is it vegan"+vegan);			
 System.out.println("Is it vegetarian"+vegetarian);			
 			
-//Recipe recipe= new Recipe(cookingMinutes,dairyFree,glutenFree,instructions,)
+addRecipe(cookingMinutes, dairyFree, glutenFree,  instructions, preparationMinutes, pricePerServing, readyInMinutes, servings, spoonacularScore,title, vegan,vegetarian);
+		
 		}
 		
+	
 		
 	} catch (IOException e) {
 		// TODO Auto-generated catch block
@@ -79,5 +86,19 @@ System.out.println("Is it vegetarian"+vegetarian);
 	
 	
    }
-	
+
+	public void addRecipe(Integer cookingMinutes, Boolean dairyFree, Boolean glutenFree, String instructions,
+			Double preparationMinutes, Double pricePerServing, Integer readyInMinutes, Integer servings,
+			Double spoonacularScore, String title, Boolean vegan, Boolean vegetarian) {
+		int i=0;
+		Recipe recipe = new Recipe(cookingMinutes, dairyFree, glutenFree, instructions, preparationMinutes,
+				pricePerServing, readyInMinutes, servings, spoonacularScore, title, vegan, vegetarian);
+		recipeList.add(recipe);
+		for (Recipe list : recipeList) {
+			i++;
+			System.out.println(i);
+			System.out.println(list);
+			
+		}
+	}
 }
