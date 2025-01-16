@@ -14,13 +14,13 @@ import org.apache.commons.csv.CSVRecord;
 public class RecipeSorterService {
 
 	Recipe recipe = new Recipe();
-	Set<Recipe> recipeList = new HashSet<>();
 	List<Recipe> listOfRecipes= new ArrayList<>();
 
-//first get the file to parse correctly
-	// then add the record.get to each variable in the POJO
-	// construct the object and then add all the objects to a set
-	// find a way to filter the set by attributes and put mapping on all of them
+//first get the file to parse correctly done 
+	// then add the record.get to each variable in the POJO done
+	// construct the object and then add all the objects to a set done
+	//get each member of the set to display correctly still working on
+	// find a way to filter the set by attributes and put mapping on all of them( do I need to use the service or do I need to import it into something separate?) probably importing it and then use a Spring annotation to load the service without instantiating it 
 	public void readFile() throws FileNotFoundException {
 
 	FileReader in = new FileReader("recipes.txt");
@@ -32,11 +32,15 @@ public class RecipeSorterService {
 		records = CSVFormat.DEFAULT.withIgnoreSurroundingSpaces()
 				                                       .withHeader()
 				                                       .withSkipHeaderRecord()
-				                                       .withEscape('\\')
+//				                   	        		.setTrim(true)
+//				                   	        		.setQuote('"')
+				                	        		.withEscape('\\')
+				                	        		.withIgnoreSurroundingSpaces(true)
+				                                       // I need to figure out what is wrong with recipe 18 and before and see what escape character I need to reference 
 				                                       .parse(in);
+//		int recordCount=0;
 		for (CSVRecord record : records) {
 		
-		System.out.println("the record the program is processing is:"+record+"the number is "+recordCount);
 //		System.out.println("the record the program is processing is:"+ record+"the number is "+recordCount);
 			Integer cookingMinutes= Integer.parseInt(record.get(0));
 			
@@ -80,7 +84,7 @@ System.out.println("here is the title"+title);
 System.out.println("is it vegan"+vegan);			
 System.out.println("Is it vegetarian"+vegetarian);			
 			
-addRecipe(cookingMinutes, dairyFree, glutenFree,  instructions, preparationMinutes, pricePerServing, readyInMinutes, servings, spoonacularScore,title, vegan,vegetarian);
+//addRecipe(cookingMinutes, dairyFree, glutenFree,  instructions, preparationMinutes, pricePerServing, readyInMinutes, servings, spoonacularScore,title, vegan,vegetarian);
 		
 		}
 //		recordCount++;
