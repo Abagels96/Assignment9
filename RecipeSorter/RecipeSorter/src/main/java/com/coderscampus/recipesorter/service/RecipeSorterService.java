@@ -11,6 +11,8 @@ import java.util.Set;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
+import com.coderscampus.recipesorter.domain.Recipe;
+
 public class RecipeSorterService {
 
 	Recipe recipe = new Recipe();
@@ -32,8 +34,8 @@ public class RecipeSorterService {
 		records = CSVFormat.DEFAULT.withIgnoreSurroundingSpaces()
 				                                       .withHeader()
 				                                       .withSkipHeaderRecord()
-//				                   	        		.setTrim(true)
-//				                   	        		.setQuote('"')
+				                   	        		.withTrim(true)
+				                   	        		.withQuote('"')
 				                	        		.withEscape('\\')
 				                	        		.withIgnoreSurroundingSpaces(true)
 				                                       // I need to figure out what is wrong with recipe 18 and before and see what escape character I need to reference 
@@ -71,18 +73,18 @@ public class RecipeSorterService {
 			
 //			i++;
 //			System.out.println(i);
-			System.out.println("Cooking Minutes are" +cookingMinutes);
-			System.out.println("Is it dairy free?" + dairyFree);
-			System.out.println("Is it gluten free" + glutenFree);
+//			System.out.println("Cooking Minutes are" +cookingMinutes);
+//			System.out.println("Is it dairy free?" + dairyFree);
+//			System.out.println("Is it gluten free" + glutenFree);
 System.out.println("Here are the instructions"+instructions);			
-System.out.println("number of minutes"+preparationMinutes);			
-System.out.println("Price per serving"+pricePerServing);			
-System.out.println("ready in minutes"+readyInMinutes);			
-System.out.println("number of servings"+ servings);			
-System.out.println("spoonacular score"+spoonacularScore);			
-System.out.println("here is the title"+title);			
-System.out.println("is it vegan"+vegan);			
-System.out.println("Is it vegetarian"+vegetarian);			
+//System.out.println("number of minutes"+preparationMinutes);			
+//System.out.println("Price per serving"+pricePerServing);			
+//System.out.println("ready in minutes"+readyInMinutes);			
+//System.out.println("number of servings"+ servings);			
+//System.out.println("spoonacular score"+spoonacularScore);			
+//System.out.println("here is the title"+title);			
+//System.out.println("is it vegan"+vegan);			
+//System.out.println("Is it vegetarian"+vegetarian);			
 			
 //addRecipe(cookingMinutes, dairyFree, glutenFree,  instructions, preparationMinutes, pricePerServing, readyInMinutes, servings, spoonacularScore,title, vegan,vegetarian);
 		

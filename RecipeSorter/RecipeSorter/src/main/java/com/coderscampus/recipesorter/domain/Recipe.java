@@ -1,4 +1,4 @@
-package com.coderscampus.recipesorter.service;
+package com.coderscampus.recipesorter.domain;
 
 public class Recipe{
 	
