@@ -3,26 +3,27 @@ package com.coderscampus.recipesorter.service;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.coderscampus.recipesorter.domain.Recipe;
+import com.coderscampus.assignment9.RecipeSorter.repository.*;
 
 public class RecipeSorterService {
 
-	Recipe recipe = new Recipe();
-	List<Recipe> listOfRecipes= new ArrayList<>();
+	public Recipe recipe = new Recipe();
+	public List<Recipe> listOfRecipes= new ArrayList<>();
+	
+	@Autowired
+	RecipeRepo recipeRepo;
 
-//first get the file to parse correctly done 
-	// then add the record.get to each variable in the POJO done
-	// construct the object and then add all the objects to a set done
-	//get each member of the set to display correctly still working on
-	// find a way to filter the set by attributes and put mapping on all of them( do I need to use the service or do I need to import it into something separate?) probably importing it and then use a Spring annotation to load the service without instantiating it 
+	
+	
 	public void readFile() throws FileNotFoundException {
 
 	FileReader in = new FileReader("recipes.txt");
@@ -33,13 +34,16 @@ public class RecipeSorterService {
 	try {
 		records = CSVFormat.DEFAULT.withIgnoreSurroundingSpaces()
 				                                       .withHeader()
-				                                       .withSkipHeaderRecord()
+				                                       .withSkipHeaderRecord(true)
 				                   	        		.withTrim(true)
 				                   	        		.withQuote('"')
 				                	        		.withEscape('\\')
 				                	        		.withIgnoreSurroundingSpaces(true)
 				                                       // I need to figure out what is wrong with recipe 18 and before and see what escape character I need to reference 
 				                                       .parse(in);
+		
+		
+		// pattern 
 //		int recordCount=0;
 		for (CSVRecord record : records) {
 		
@@ -51,6 +55,7 @@ public class RecipeSorterService {
 			Boolean dairyFree= Boolean.parseBoolean(record.get(1));
 			
 			Boolean glutenFree= Boolean.parseBoolean(record.get(2));
+			
 			
 		 String instructions= record.get(3);
 
@@ -71,11 +76,9 @@ public class RecipeSorterService {
 //
 		    Boolean vegetarian=Boolean.parseBoolean(record.get(11));
 			
-//			i++;
-//			System.out.println(i);
 //			System.out.println("Cooking Minutes are" +cookingMinutes);
 //			System.out.println("Is it dairy free?" + dairyFree);
-//			System.out.println("Is it gluten free" + glutenFree);
+			System.out.println("Is it gluten free" + glutenFree);
 System.out.println("Here are the instructions"+instructions);			
 //System.out.println("number of minutes"+preparationMinutes);			
 //System.out.println("Price per serving"+pricePerServing);			
@@ -86,7 +89,7 @@ System.out.println("Here are the instructions"+instructions);
 //System.out.println("is it vegan"+vegan);			
 //System.out.println("Is it vegetarian"+vegetarian);			
 			
-//addRecipe(cookingMinutes, dairyFree, glutenFree,  instructions, preparationMinutes, pricePerServing, readyInMinutes, servings, spoonacularScore,title, vegan,vegetarian);
+addRecipe(cookingMinutes, dairyFree, glutenFree,  instructions, preparationMinutes, pricePerServing, readyInMinutes, servings, spoonacularScore,title, vegan,vegetarian);
 		
 		}
 //		recordCount++;
@@ -101,24 +104,22 @@ System.out.println("Here are the instructions"+instructions);
 	
    }
 
-	public void addRecipe(Integer cookingMinutes, Boolean dairyFree, Boolean glutenFree, String instructions,
+	public List<Recipe> addRecipe(Integer cookingMinutes, Boolean dairyFree, Boolean glutenFree, String instructions,
 			Double preparationMinutes, Double pricePerServing, Integer readyInMinutes, Integer servings,
 			Double spoonacularScore, String title, Boolean vegan, Boolean vegetarian) {
-		int i=0;
 		Recipe newRecipe = new Recipe(cookingMinutes, dairyFree, glutenFree, instructions, preparationMinutes,
 				pricePerServing, readyInMinutes, servings, spoonacularScore, title, vegan, vegetarian);
+		
 		listOfRecipes.add(newRecipe);
-		for(Recipe recipe:listOfRecipes) {
-			i++;
-			System.out.println(recipe);
-			System.out.println(i);
-		}
-//		recipeList.add(newRecipe);
-//		for (Recipe recipe : recipeList) {
-//			i++;
-//			System.out.println(i);
-//			System.out.println(recipe);
-//			
-//		}
+		return  listOfRecipes;
+	
+
+	}
+
+
+
+	public List<Recipe> returnRecipes(List<Recipe>listOfRecipes) {
+		return listOfRecipes;
+		
 	}
 }
