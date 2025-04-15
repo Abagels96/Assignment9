@@ -1,12 +1,14 @@
-package main.java.com.coderscampus.assignment9.repository;
+package com.coderscampus.Assignment9.repository;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-import main.java.com.coderscampus.assignment9.domain.Recipe;
-import main.java.com.coderscampus.rassignment9.service.RecipeSorterService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.coderscampus.Assignment9.domain.Recipe;
+import com.coderscampus.Assignment9.service.RecipeSorterService;
 
 public class RecipeRepo {
 	@Autowired
