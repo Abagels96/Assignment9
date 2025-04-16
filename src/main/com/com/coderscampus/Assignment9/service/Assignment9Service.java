@@ -10,21 +10,24 @@ import java.util.List;
 import com.coderscampus.Assignment9.repository.*;
 import com.coderscampus.Assignment9.domain.*;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.coderscampus.Assignment9.domain.Recipe;
-import com.coderscampus.Assignment9.repository.RecipeRepo;
+//import com.coderscampus.Assignment9.repository.RecipeRepo;
 
 @Service
-public class RecipeSorterService {
+public class Assignment9Service {
 
 	public Recipe recipe = new Recipe();
 	public List<Recipe> listOfRecipes = new ArrayList<>();
 
 	@Autowired
-	RecipeRepo recipeRepo;
+//	RecipeRepo recipeRepo;
 
+	@SuppressWarnings("deprecation")
 	public void readFile() throws FileNotFoundException {
 
 		FileReader in = new FileReader("recipes.txt");
@@ -33,15 +36,11 @@ public class RecipeSorterService {
 		try {
 			records = CSVFormat.DEFAULT.withIgnoreSurroundingSpaces().withHeader().withSkipHeaderRecord(true)
 					.withTrim(true).withQuote('"').withEscape('\\').withIgnoreSurroundingSpaces(true)
-					// I need to figure out what is wrong with recipe 18 and before and see what
-					// escape character I need to reference
+					
 					.parse(in);
 
-			// pattern
-//		int recordCount=0;
 			for (CSVRecord record : records) {
 
-//		System.out.println("the record the program is processing is:"+ record+"the number is "+recordCount);
 				Integer cookingMinutes = Integer.parseInt(record.get(0));
 
 				Boolean dairyFree = Boolean.parseBoolean(record.get(1));
@@ -66,24 +65,13 @@ public class RecipeSorterService {
 //
 				Boolean vegetarian = Boolean.parseBoolean(record.get(11));
 
-//			System.out.println("Cooking Minutes are" +cookingMinutes);
-//			System.out.println("Is it dairy free?" + dairyFree);
 				System.out.println("Is it gluten free" + glutenFree);
 				System.out.println("Here are the instructions" + instructions);
-//System.out.println("number of minutes"+preparationMinutes);			
-//System.out.println("Price per serving"+pricePerServing);			
-//System.out.println("ready in minutes"+readyInMinutes);			
-//System.out.println("number of servings"+ servings);			
-//System.out.println("spoonacular score"+spoonacularScore);			
-//System.out.println("here is the title"+title);			
-//System.out.println("is it vegan"+vegan);			
-//System.out.println("Is it vegetarian"+vegetarian);			
 
 				addRecipe(cookingMinutes, dairyFree, glutenFree, instructions, preparationMinutes, pricePerServing,
 						readyInMinutes, servings, spoonacularScore, title, vegan, vegetarian);
 
 			}
-// import csv record thing apache commons for spring 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
