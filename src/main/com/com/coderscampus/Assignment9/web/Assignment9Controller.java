@@ -1,4 +1,4 @@
-package com.coderscampus.Assignment9.controller;
+package com.coderscampus.Assignment9.web;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.stream.Collectors;
