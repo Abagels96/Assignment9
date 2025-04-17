@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.coderscampus.Assignment9.domain.Recipe;
@@ -19,8 +18,6 @@ public class Assignment9Service {
 	public Recipe recipe = new Recipe();
 	public List<Recipe> listOfRecipes = new ArrayList<>();
 
-	@Autowired
-//	RecipeRepo recipeRepo;
 
 	@SuppressWarnings("deprecation")
 	public void readFile() throws FileNotFoundException {
