@@ -42,8 +42,7 @@ public class Assignment9Controller {
 	public List<Recipe> veganRecipes() {
 
 		List<Recipe> allRecipes = allRecipes();
-		List<Recipe> vegan = allRecipes.stream().filter(newRecipe -> newRecipe.getVegan())
-				.collect(Collectors.toList());
+		List<Recipe> vegan = allRecipes.stream().filter(newRecipe -> newRecipe.getVegan()).collect(Collectors.toList());
 		return vegan;
 	}
 
@@ -51,9 +50,8 @@ public class Assignment9Controller {
 	public List<Recipe> veganPlusGluten() {
 		List<Recipe> allRecipes = allRecipes();
 
-		List<Recipe> veganAndGluten = allRecipes.stream().filter(newRecipe -> newRecipe.getGlutenFree()
-				||  newRecipe.getVegan())
-				.collect(Collectors.toList());
+		List<Recipe> veganAndGluten = allRecipes.stream()
+				.filter(newRecipe -> newRecipe.getGlutenFree() || newRecipe.getVegan()).collect(Collectors.toList());
 		return veganAndGluten;
 
 	}
