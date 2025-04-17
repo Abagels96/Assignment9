@@ -18,7 +18,6 @@ public class Assignment9Service {
 	public Recipe recipe = new Recipe();
 	public List<Recipe> listOfRecipes = new ArrayList<>();
 
-
 	@SuppressWarnings("deprecation")
 	public void readFile() throws FileNotFoundException {
 
@@ -28,7 +27,7 @@ public class Assignment9Service {
 		try {
 			records = CSVFormat.DEFAULT.withIgnoreSurroundingSpaces().withHeader().withSkipHeaderRecord(true)
 					.withTrim(true).withQuote('"').withEscape('\\').withIgnoreSurroundingSpaces(true)
-					
+
 					.parse(in);
 
 			for (CSVRecord record : records) {
@@ -52,9 +51,7 @@ public class Assignment9Service {
 				Double spoonacularScore = Double.parseDouble(record.get(8));
 
 				String title = record.get(9);
-//
 				Boolean vegan = Boolean.parseBoolean(record.get(10));
-//
 				Boolean vegetarian = Boolean.parseBoolean(record.get(11));
 
 				System.out.println("Is it gluten free" + glutenFree);

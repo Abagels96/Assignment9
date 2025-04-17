@@ -17,12 +17,11 @@ public class Assignment9Controller {
 	@Autowired
 	private Assignment9Service service;
 
-	// sync the names of the classes before turning into Kevin
 	@GetMapping("/gluten-free")
-	public List<String> isGlutenFree() {
+	public List<Recipe> isGlutenFree() {
 		List<Recipe> allRecipes = allRecipes();
-		List<String> glutenFree = allRecipes.stream().filter(newRecipe -> newRecipe.getGlutenFree())
-				.map(newRecipe -> newRecipe.getTitle()).collect(Collectors.toList());
+		List<Recipe> glutenFree = allRecipes.stream().filter(newRecipe -> newRecipe.getGlutenFree())
+				.collect(Collectors.toList());
 		return glutenFree;
 
 	}
@@ -40,32 +39,31 @@ public class Assignment9Controller {
 	}
 
 	@GetMapping("/vegan")
-	public List<String> veganRecipes() {
+	public List<Recipe> veganRecipes() {
 
 		List<Recipe> allRecipes = allRecipes();
-		List<String> vegan = allRecipes.stream().filter(newRecipe -> newRecipe.getVegan())
-				.map(newRecipe -> newRecipe.getTitle()).collect(Collectors.toList());
+		List<Recipe> vegan = allRecipes.stream().filter(newRecipe -> newRecipe.getVegan())
+				.collect(Collectors.toList());
 		return vegan;
 	}
 
 	@GetMapping("/vegan-and-gluten-free")
-	public List<String> veganPlusGluten() {
+	public List<Recipe> veganPlusGluten() {
 		List<Recipe> allRecipes = allRecipes();
 
-		List<String> veganAndGluten = allRecipes.stream().filter(newRecipe -> newRecipe.getGlutenFree()
-				||  newRecipe.getVegan()).map(newRecipe -> newRecipe.getTitle())
+		List<Recipe> veganAndGluten = allRecipes.stream().filter(newRecipe -> newRecipe.getGlutenFree()
+				||  newRecipe.getVegan())
 				.collect(Collectors.toList());
-		System.out.println(veganAndGluten);
 		return veganAndGluten;
 
 	}
 
 	@GetMapping("/vegetarian")
-	public List<String> vegetarian() {
+	public List<Recipe> vegetarian() {
 		List<Recipe> allRecipes = allRecipes();
 
-		List<String> sortedList = allRecipes.stream().filter(newRecipe -> newRecipe.getVegetarian())
-				.map(newRecipe -> newRecipe.getTitle()).collect(Collectors.toList());
+		List<Recipe> sortedList = allRecipes.stream().filter(newRecipe -> newRecipe.getVegetarian())
+				.collect(Collectors.toList());
 		return sortedList;
 	}
 }
