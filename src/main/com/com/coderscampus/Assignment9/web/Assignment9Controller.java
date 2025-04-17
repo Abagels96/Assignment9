@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.coderscampus.Assignment9.domain.Recipe;
 import com.coderscampus.Assignment9.service.Assignment9Service;
-//import com.coderscampus.Assignment9.repository.RecipeRepo;
 
 @RestController
 
@@ -17,10 +16,9 @@ public class Assignment9Controller {
 	@Autowired
 	private Assignment9Service service;
 	// sync the names of the classes before turning into Kevin 
-	@GetMapping("gluten-free")
+	@GetMapping("/gluten-free")
 	public List<String> isGlutenFree(List<Recipe> listOfRecipes) {
-
-		List<String> glutenFree = listOfRecipes.stream().filter(newRecipe -> newRecipe.getGlutenFree())
+		List<String> glutenFree = allRecipes.stream().filter(newRecipe -> newRecipe.getGlutenFree())
 				.map(newRecipe -> newRecipe.getTitle()).collect(Collectors.toList());
 		return glutenFree;
 
