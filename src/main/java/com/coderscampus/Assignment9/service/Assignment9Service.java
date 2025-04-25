@@ -18,15 +18,18 @@ public class Assignment9Service {
 	public Recipe recipe = new Recipe();
 	public List<Recipe> listOfRecipes = new ArrayList<>();
 
-	@SuppressWarnings("deprecation")
 	public void readFile() throws FileNotFoundException {
 
 		FileReader in = new FileReader("recipes.txt");
 
 		Iterable<CSVRecord> records;
 		try {
-			records = CSVFormat.DEFAULT.withIgnoreSurroundingSpaces().withHeader().withSkipHeaderRecord(true)
-					.withTrim(true).withQuote('"').withEscape('\\').withIgnoreSurroundingSpaces(true)
+			records = CSVFormat.DEFAULT.builder().setIgnoreSurroundingSpaces(true).setIgnoreEmptyLines(true).setIgnoreHeaderCase(true)
+					.setEscape('\\').setQuote('"').setTrim(true).setDelimiter(".").setIgnoreSurroundingSpaces(true)
+					
+					
+					//find a way to parse a file reader with builder and make it handle more characters and spaces IG
+					//handle the exceptions probably.
 
 					.parse(in);
 
@@ -48,14 +51,13 @@ public class Assignment9Service {
 
 				Integer servings = Integer.parseInt(record.get(7));
 
-				Double spoonacularScore = Double.parseDouble(record.get(8));
+				Double spoonacularScore = Double.parseDouble(record.get(8))
 
 				String title = record.get(9);
 				Boolean vegan = Boolean.parseBoolean(record.get(10));
 				Boolean vegetarian = Boolean.parseBoolean(record.get(11));
 
-				System.out.println("Is it gluten free" + glutenFree);
-				System.out.println("Here are the instructions" + instructions);
+				//fix the file reader to only run once.
 
 				addRecipe(cookingMinutes, dairyFree, glutenFree, instructions, preparationMinutes, pricePerServing,
 						readyInMinutes, servings, spoonacularScore, title, vegan, vegetarian);
@@ -63,8 +65,7 @@ public class Assignment9Service {
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+System.out.println("File not found");		}
 
 	}
 

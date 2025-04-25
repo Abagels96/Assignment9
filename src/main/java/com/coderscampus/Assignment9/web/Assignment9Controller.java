@@ -31,34 +31,32 @@ public class Assignment9Controller {
 		try {
 			service.readFile();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+     System.out.println("File not found");
+		
 		}
 		List<Recipe> allRecipes = service.returnRecipes(service.listOfRecipes);
 		return allRecipes;
 	}
+	List<Recipe>allRecipes=allRecipes();
 
 	@GetMapping("/vegan")
 	public List<Recipe> veganRecipes() {
 
-		List<Recipe> allRecipes = allRecipes();
 		List<Recipe> vegan = allRecipes.stream().filter(newRecipe -> newRecipe.getVegan()).collect(Collectors.toList());
 		return vegan;
 	}
 
 	@GetMapping("/vegan-and-gluten-free")
 	public List<Recipe> veganPlusGluten() {
-		List<Recipe> allRecipes = allRecipes();
 
 		List<Recipe> veganAndGluten = allRecipes.stream()
-				.filter(newRecipe -> newRecipe.getGlutenFree() || newRecipe.getVegan()).collect(Collectors.toList());
+				.filter(newRecipe -> newRecipe.getGlutenFree() && newRecipe.getVegan()).collect(Collectors.toList());
 		return veganAndGluten;
 
 	}
 
 	@GetMapping("/vegetarian")
 	public List<Recipe> vegetarian() {
-		List<Recipe> allRecipes = allRecipes();
 
 		List<Recipe> sortedList = allRecipes.stream().filter(newRecipe -> newRecipe.getVegetarian())
 				.collect(Collectors.toList());
