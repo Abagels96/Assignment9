@@ -1,5 +1,5 @@
-package com.coderscampus.Assignment9.domain;
 
+package com.coderscampus.Assignment9.domain;
 public class Recipe{
 	
 	

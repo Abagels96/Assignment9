@@ -21,17 +21,21 @@ public class Assignment9Service {
 	public void readFile() throws FileNotFoundException {
 
 		FileReader in = new FileReader("recipes.txt");
+		 String HEADERS= "Cooking Minutes, Dairy Free, Gluten Free, Instructions, Preparation Minutes, Price Per Serving, Ready In Minutes, Servings, Spoonacular Score, Title, Vegan, Vegetarian";
 
-		Iterable<CSVRecord> records;
+		CSVFormat csvFormat;
 		try {
-			records = CSVFormat.DEFAULT.builder().setIgnoreSurroundingSpaces(true).setIgnoreEmptyLines(true).setIgnoreHeaderCase(true)
-					.setEscape('\\').setQuote('"').setTrim(true).setDelimiter(".").setIgnoreSurroundingSpaces(true)
+			csvFormat = CSVFormat.DEFAULT.builder().setIgnoreSurroundingSpaces(true).setIgnoreEmptyLines(true)        .setHeader(HEADERS)
+.setSkipHeaderRecord(true). setEscape('\'').
+					setIgnoreHeaderCase(true)
+					.setEscape('\\').setQuote('"').setTrim(true).setDelimiter(".").setIgnoreSurroundingSpaces(true).build();
 					
 					
 					//find a way to parse a file reader with builder and make it handle more characters and spaces IG
 					//handle the exceptions probably.
-
-					.parse(in);
+			
+			Iterable<CSVRecord> records = csvFormat.parse(in);
+				
 
 			for (CSVRecord record : records) {
 
@@ -51,7 +55,7 @@ public class Assignment9Service {
 
 				Integer servings = Integer.parseInt(record.get(7));
 
-				Double spoonacularScore = Double.parseDouble(record.get(8))
+				Double spoonacularScore = Double.parseDouble(record.get(8));
 
 				String title = record.get(9);
 				Boolean vegan = Boolean.parseBoolean(record.get(10));

@@ -19,7 +19,7 @@ public class Assignment9Controller {
 
 	@GetMapping("/gluten-free")
 	public List<Recipe> isGlutenFree() {
-		List<Recipe> allRecipes = allRecipes();
+		allRecipes();
 		List<Recipe> glutenFree = allRecipes.stream().filter(newRecipe -> newRecipe.getGlutenFree())
 				.collect(Collectors.toList());
 		return glutenFree;
@@ -41,7 +41,9 @@ public class Assignment9Controller {
 
 	@GetMapping("/vegan")
 	public List<Recipe> veganRecipes() {
-
+allRecipes();
+allRecipes();
+allRecipes();
 		List<Recipe> vegan = allRecipes.stream().filter(newRecipe -> newRecipe.getVegan()).collect(Collectors.toList());
 		return vegan;
 	}
