@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.csv.QuoteMode;
 import org.springframework.stereotype.Service;
 
 import com.coderscampus.Assignment9.domain.Recipe;
@@ -21,21 +22,16 @@ public class Assignment9Service {
 	public void readFile() throws FileNotFoundException {
 
 		FileReader in = new FileReader("recipes.txt");
-		 String HEADERS= "Cooking Minutes, Dairy Free, Gluten Free, Instructions, Preparation Minutes, Price Per Serving, Ready In Minutes, Servings, Spoonacular Score, Title, Vegan, Vegetarian";
+		String HEADERS = "Cooking Minutes, Dairy Free, Gluten Free, Instructions, Preparation Minutes, Price Per Serving, Ready In Minutes, Servings, Spoonacular Score, Title, Vegan, Vegetarian";
 
 		CSVFormat csvFormat;
 		try {
-			csvFormat = CSVFormat.DEFAULT.builder().setIgnoreSurroundingSpaces(true).setIgnoreEmptyLines(true)       .setHeader(HEADERS)
-.setSkipHeaderRecord(true). setEscape('\'').
-					setIgnoreHeaderCase(true)
-					.setEscape('\\').setQuote('"').setTrim(true).setDelimiter(".").setDelimiter(',').setIgnoreSurroundingSpaces(true).build();
-					
-					
-					// make it handle more characters and spaces IG
-					//handle the exceptions probably.
-			
+			csvFormat = CSVFormat.DEFAULT.builder().setIgnoreSurroundingSpaces(true).setIgnoreEmptyLines(true)
+					.setAllowMissingColumnNames(true).setHeader(HEADERS).setSkipHeaderRecord(true)
+					.setQuoteMode(QuoteMode.MINIMAL).setIgnoreHeaderCase(true).setEscape('\\').setQuote('"')
+					.setTrim(true).setDelimiter(".").setDelimiter(',').build();
+
 			Iterable<CSVRecord> records = csvFormat.parse(in);
-				
 
 			for (CSVRecord record : records) {
 
@@ -60,8 +56,6 @@ public class Assignment9Service {
 				String title = record.get(9);
 				Boolean vegan = Boolean.parseBoolean(record.get(10));
 				Boolean vegetarian = Boolean.parseBoolean(record.get(11));
-System.out.println(instructions);
-				//fix the file reader to only run once.
 
 				addRecipe(cookingMinutes, dairyFree, glutenFree, instructions, preparationMinutes, pricePerServing,
 						readyInMinutes, servings, spoonacularScore, title, vegan, vegetarian);
@@ -69,7 +63,8 @@ System.out.println(instructions);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-System.out.println("File not found");		}
+			System.out.println("File not found");
+		}
 
 	}
 
