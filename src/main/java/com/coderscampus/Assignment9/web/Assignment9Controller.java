@@ -17,39 +17,39 @@ public class Assignment9Controller {
 	@Autowired
 	private Assignment9Service service;
 
+	@GetMapping("/all-recipes")
+	public List<Recipe> allRecipes() {
+		List<Recipe> allRecipes = service.returnRecipes(service.listOfRecipes);
+		if (allRecipes.isEmpty()) {
+			try {
+				service.readFile();
+			} catch (FileNotFoundException e) {
+				System.out.println("File not found");
+
+			}
+		}
+		return allRecipes;
+	}
+
 	@GetMapping("/gluten-free")
 	public List<Recipe> isGlutenFree() {
-		allRecipes();
+		List<Recipe> allRecipes = allRecipes();
 		List<Recipe> glutenFree = allRecipes.stream().filter(newRecipe -> newRecipe.getGlutenFree())
 				.collect(Collectors.toList());
 		return glutenFree;
 
 	}
 
-	@GetMapping("/all-recipes")
-	public List<Recipe> allRecipes() {
-		try {
-			service.readFile();
-		} catch (FileNotFoundException e) {
-     System.out.println("File not found");
-		
-		}
-		List<Recipe> allRecipes = service.returnRecipes(service.listOfRecipes);
-		return allRecipes;
-	}
-	List<Recipe>allRecipes=allRecipes();
-
 	@GetMapping("/vegan")
 	public List<Recipe> veganRecipes() {
-allRecipes();
-allRecipes();
-allRecipes();
+		List<Recipe> allRecipes = allRecipes();
 		List<Recipe> vegan = allRecipes.stream().filter(newRecipe -> newRecipe.getVegan()).collect(Collectors.toList());
 		return vegan;
 	}
 
 	@GetMapping("/vegan-and-gluten-free")
 	public List<Recipe> veganPlusGluten() {
+		List<Recipe> allRecipes = allRecipes();
 
 		List<Recipe> veganAndGluten = allRecipes.stream()
 				.filter(newRecipe -> newRecipe.getGlutenFree() && newRecipe.getVegan()).collect(Collectors.toList());
@@ -59,6 +59,7 @@ allRecipes();
 
 	@GetMapping("/vegetarian")
 	public List<Recipe> vegetarian() {
+		List<Recipe> allRecipes = allRecipes();
 
 		List<Recipe> sortedList = allRecipes.stream().filter(newRecipe -> newRecipe.getVegetarian())
 				.collect(Collectors.toList());

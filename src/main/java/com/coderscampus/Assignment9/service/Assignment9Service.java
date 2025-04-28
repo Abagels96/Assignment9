@@ -25,13 +25,13 @@ public class Assignment9Service {
 
 		CSVFormat csvFormat;
 		try {
-			csvFormat = CSVFormat.DEFAULT.builder().setIgnoreSurroundingSpaces(true).setIgnoreEmptyLines(true)        .setHeader(HEADERS)
+			csvFormat = CSVFormat.DEFAULT.builder().setIgnoreSurroundingSpaces(true).setIgnoreEmptyLines(true)       .setHeader(HEADERS)
 .setSkipHeaderRecord(true). setEscape('\'').
 					setIgnoreHeaderCase(true)
-					.setEscape('\\').setQuote('"').setTrim(true).setDelimiter(".").setIgnoreSurroundingSpaces(true).build();
+					.setEscape('\\').setQuote('"').setTrim(true).setDelimiter(".").setDelimiter(',').setIgnoreSurroundingSpaces(true).build();
 					
 					
-					//find a way to parse a file reader with builder and make it handle more characters and spaces IG
+					// make it handle more characters and spaces IG
 					//handle the exceptions probably.
 			
 			Iterable<CSVRecord> records = csvFormat.parse(in);
@@ -60,7 +60,7 @@ public class Assignment9Service {
 				String title = record.get(9);
 				Boolean vegan = Boolean.parseBoolean(record.get(10));
 				Boolean vegetarian = Boolean.parseBoolean(record.get(11));
-
+System.out.println(instructions);
 				//fix the file reader to only run once.
 
 				addRecipe(cookingMinutes, dairyFree, glutenFree, instructions, preparationMinutes, pricePerServing,
